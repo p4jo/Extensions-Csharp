@@ -118,7 +118,7 @@ namespace Extensions
 				return @default;
 		}
 
-		public static T ElementAtOrDefault<T>(this IEnumerable<T> array, int index, T @default)
+		public static T ElementAtOrDefault<T>(this IEnumerable<T> array, int index, T @default = default(T))
 		{
 			if (index < array.Count())
 				return array.ElementAt(index);
@@ -1065,22 +1065,41 @@ namespace Extensions
 		/// <summary>
 		/// Sum of elements, + has to be defined
 		/// </summary>
-		public static double Σ(this IEnumerable<double> lst, Func<double, double> element = null) 
+		public static double Σ(this IEnumerable<double> lst, Func<double, double> element = null)
 		{
 			if (element == null)
 			{
 				return BigOperator<double, double, double>(lst, a => a, (S, b) => S + b);
 			}
 			return BigOperator<double, double, double>(lst, element, (S, b) => S + b);
-		} //geht auch nicht ...*/
-		public static int Σ (this IEnumerable<int> lst, Func<int, int> element = null) 
+		}
+		public static int Σ(this IEnumerable<int> lst, Func<int, int> element = null)
 		{
 			if (element == null)
 			{
 				return BigOperator<int, int, int>(lst, a => a, (S, b) => S + b);
 			}
 			return BigOperator<int, int, int>(lst, element, (S, b) => S + b);
-		} //geht auch nicht ...*/
+		}
+		/// <summary>
+		 /// Product of elements, * has to be defined
+		 /// </summary>
+		public static double Π(this IEnumerable<double> lst, Func<double, double> element = null)
+		{
+			if (element == null)
+			{
+				return BigOperator<double, double, double>(lst, a => a, (S, b) => S * b);
+			}
+			return BigOperator<double, double, double>(lst, element, (S, b) => S * b);
+		}
+		public static int Π(this IEnumerable<int> lst, Func<int, int> element = null)
+		{
+			if (element == null)
+			{
+				return BigOperator<int, int, int>(lst, a => a, (S, b) => S * b);
+			}
+			return BigOperator<int, int, int>(lst, element, (S, b) => S * b);
+		}
 
 		public static T Min<T, T2>(this IEnumerable<T> lst, Func<T, T2> element) where T2 : IComparable
 		{
